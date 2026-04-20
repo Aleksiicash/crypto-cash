@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crypto Cash — VIP Terminal</title>
+  <meta name="theme-color" content="#080a0e" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="splash" class="splash">
+    <div class="splash-grid"></div>
+    <div class="splash-center">
+      <div class="splash-logo">
+        <span class="c">C</span>
+        <span class="c">C</span>
+        <span class="line line-1"></span>
+        <span class="line line-2"></span>
+      </div>
+      <div class="splash-title">CRYPTO CASH</div>
+      <div class="splash-subtitle">VIP PRIVATE EXCHANGE TERMINAL</div>
+    </div>
+  </div>
+
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+  <div class="scanlines"></div>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="status-row">
+        <div class="status-pill">PRIVATE DESK</div>
+        <div class="status-pill gold">KRASNODAR</div>
+      </div>
+
+      <div class="hero-main">
+        <div class="hero-logo">
+          <div class="cc-mark">
+            <span class="c">C</span>
+            <span class="c">C</span>
+            <span class="line line-1"></span>
+            <span class="line line-2"></span>
+          </div>
+        </div>
+
+        <div class="hero-copy">
+          <div class="terminal-head">SECURE EXCHANGE ACCESS</div>
+          <h1>Crypto Cash</h1>
+          <p class="lead">Безопасный обмен USDT, USDC, USD, EUR, RUB в Краснодаре.</p>
+          <p class="muted">Конфиденциальность клиента — наш приоритет. Подача в стиле private crypto desk с внутренним токеном CC и прямой связью через Telegram.</p>
+        </div>
+      </div>
+
+      <div class="hero-grid">
+        <div class="mini-card">
+          <span>Активы</span>
+          <strong>USDT · USDC · USD · EUR · RUB</strong>
+        </div>
+        <div class="mini-card">
+          <span>Связь</span>
+          <strong>Заявки напрямую в Telegram</strong>
+        </div>
+        <div class="mini-card">
+          <span>Формат</span>
+          <strong>VIP terminal / private exchange</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-grid">
+      <section class="panel">
+        <div class="panel-top">
+          <div>
+            <div class="panel-tag">CC INTERNAL TOKEN</div>
+            <h2>Копилка клиента</h2>
+          </div>
+          <div class="cc-chip">1000 CC = $0.10</div>
+        </div>
+
+        <div class="balances">
+          <div class="balance-card">
+            <span>Сегодня</span>
+            <strong><span id="daily">0</span> <small>CC</small></strong>
+          </div>
+          <div class="balance-card">
+            <span>Копилка</span>
+            <strong><span id="bank">0</span> <small>CC</small></strong>
+          </div>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress-meta">
+            <span>Дневной лимит</span>
+            <span><span id="remaining">1000</span> CC осталось</span>
+          </div>
+          <div class="progress">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="tap-module">
+          <button id="tapBtn" class="tap-btn" type="button">
+            <span class="tap-core"></span>
+            <span class="tap-ring"></span>
+            <span class="tap-label">TAP FOR CC</span>
+          </button>
+          <div id="floaters" class="floaters"></div>
+          <div id="limitText" class="limit-text"></div>
+        </div>
+
+        <div class="actions">
+          <button id="saveBtn" class="btn btn-secondary" type="button">Отправить в копилку</button>
+          <button id="withdrawBtn" class="btn btn-primary" type="button">Обменять CC</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-top">
+          <div>
+            <div class="panel-tag">FAST REQUEST</div>
+            <h2>Оставить заявку</h2>
+          </div>
+          <div class="signal-box">
+            <span class="signal-dot"></span>
+            <span>DIRECT LINE</span>
+          </div>
+        </div>
+
+        <form id="requestForm" class="form">
+          <label>
+            <span>Имя</span>
+            <input id="name" type="text" placeholder="Ваше имя" />
+          </label>
+
+          <label>
+            <span>Telegram / телефон</span>
+            <input id="contact" type="text" placeholder="@username или номер" />
+          </label>
+
+          <label>
+            <span>Направление</span>
+            <select id="direction">
+              <option>USDT → RUB</option>
+              <option>USDC → RUB</option>
+              <option>USD → RUB</option>
+              <option>EUR → RUB</option>
+              <option>RUB → USDT</option>
+              <option>RUB → USDC</option>
+              <option>RUB → USD</option>
+              <option>RUB → EUR</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Сумма</span>
+            <input id="amount" type="text" placeholder="Например: 2 500 USDT" />
+          </label>
+
+          <label>
+            <span>Комментарий</span>
+            <textarea id="comment" rows="4" placeholder="Дополнительные детали"></textarea>
+          </label>
+
+          <button class="btn btn-primary full" type="submit">Отправить заявку</button>
+        </form>
+
+        <div class="security-note">
+          <div class="security-title">Crypto Cash / Secure Channel</div>
+          <p>Безопасный обмен USDT, USDC, USD, EUR, RUB в Краснодаре. Конфиденциальность клиента — наш приоритет.</p>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
