@@ -1,129 +1,16 @@
-const DAILY_LIMIT = 1000;
-const REWARD_PER_TAP = 20;
-const STORAGE_KEY = "crypto_cash_cc_vip_terminal";
-const TELEGRAM_USERNAME = "@managercryptocash";
-
-function todayKey() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-function loadState() {
-  const fallback = { date: todayKey(), daily: 0, bank: 0 };
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) return fallback;
-
-  try {
-    const parsed = JSON.parse(raw);
-    const bank = Number(parsed.bank) || 0;
-    if (parsed.date !== todayKey()) {
-      return { date: todayKey(), daily: 0, bank };
-    }
-    return {
-      date: parsed.date || todayKey(),
-      daily: Number(parsed.daily) || 0,
-      bank
-    };
-  } catch {
-    return fallback;
-  }
-}
-
-let state = loadState();
-
-const splash = document.getElementById("splash");
-const dailyEl = document.getElementById("daily");
-const bankEl = document.getElementById("bank");
-const remainingEl = document.getElementById("remaining");
-const progressFillEl = document.getElementById("progressFill");
-const limitTextEl = document.getElementById("limitText");
-const tapBtn = document.getElementById("tapBtn");
-const saveBtn = document.getElementById("saveBtn");
-const withdrawBtn = document.getElementById("withdrawBtn");
-const floatersEl = document.getElementById("floaters");
-
-const requestForm = document.getElementById("requestForm");
-const nameEl = document.getElementById("name");
-const contactEl = document.getElementById("contact");
-const directionEl = document.getElementById("direction");
-const amountEl = document.getElementById("amount");
-const commentEl = document.getElementById("comment");
-
-function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
-
-function fmt(num) {
-  return new Intl.NumberFormat("ru-RU").format(num);
-}
-
-function updateUI() {
-  dailyEl.textContent = fmt(state.daily);
-  bankEl.textContent = fmt(state.bank);
-
-  const remaining = Math.max(0, DAILY_LIMIT - state.daily);
-  remainingEl.textContent = fmt(remaining);
-  progressFillEl.style.width = Math.min(100, (state.daily / DAILY_LIMIT) * 100) + "%";
-
-  if (state.daily >= DAILY_LIMIT) {
-    tapBtn.disabled = true;
-    limitTextEl.textContent = "Лимит на сегодня достигнут. Отправь CC в копилку.";
-  } else {
-    tapBtn.disabled = false;
-    limitTextEl.textContent = "Каждый тап даёт " + REWARD_PER_TAP + " CC.";
-  }
-}
-
-function spawnFloater(text) {
-  const item = document.createElement("span");
-  item.className = "floater";
-  item.textContent = text;
-  item.style.setProperty("--x", (Math.floor(Math.random() * 80) - 40) + "px");
-  floatersEl.appendChild(item);
-  setTimeout(() => item.remove(), 900);
-}
-
-tapBtn.addEventListener("click", () => {
-  if (state.daily >= DAILY_LIMIT) return;
-  state.daily += REWARD_PER_TAP;
-  if (state.daily > DAILY_LIMIT) state.daily = DAILY_LIMIT;
-  saveState();
-  updateUI();
-  spawnFloater("+" + REWARD_PER_TAP + " CC");
-});
-
-saveBtn.addEventListener("click", () => {
-  if (state.daily <= 0) {
-    limitTextEl.textContent = "Сначала заработай CC.";
-    return;
-  }
-  state.bank += state.daily;
-  state.daily = 0;
-  saveState();
-  updateUI();
-  spawnFloater("В копилку");
-});
-
-withdrawBtn.addEventListener("click", () => {
-  const text = encodeURIComponent("Хочу обменять накопления CC: " + state.bank + " CC");
-  window.open("https://t.me/" + TELEGRAM_USERNAME + "?text=" + text, "_blank");
-});
-
-requestForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const lines = [
-    "Новая заявка Crypto Cash",
-    "Имя: " + (nameEl.value.trim() || "—"),
-    "Контакт: " + (contactEl.value.trim() || "—"),
-    "Направление: " + directionEl.value,
-    "Сумма: " + (amountEl.value.trim() || "—"),
-    "Комментарий: " + (commentEl.value.trim() || "—")
-  ];
-  const text = encodeURIComponent(lines.join("\n"));
-  window.open("https://t.me/" + TELEGRAM_USERNAME + "?text=" + text, "_blank");
-});
-
-window.addEventListener("load", () => {
-  setTimeout(() => splash.classList.add("hidden"), 1600);
-});
-
+const DAILY_LIMIT=1000,REWARD_PER_TAP=20,STORAGE_KEY="crypto_cash_direct_bot_v2";
+const tg=window.Telegram&&window.Telegram.WebApp?window.Telegram.WebApp:null;
+if(tg){tg.ready();tg.expand();}
+function todayKey(){return new Date().toISOString().slice(0,10);}
+function loadState(){const f={date:todayKey(),daily:0,bank:0},r=localStorage.getItem(STORAGE_KEY);if(!r)return f;try{const p=JSON.parse(r),bank=Number(p.bank)||0;if(p.date!==todayKey())return{date:todayKey(),daily:0,bank};return{date:p.date||todayKey(),daily:Number(p.daily)||0,bank};}catch{return f;}}
+let state=loadState();
+const dailyEl=document.getElementById("daily"),bankEl=document.getElementById("bank"),totalEl=document.getElementById("total"),remainingEl=document.getElementById("remaining"),progressFillEl=document.getElementById("progressFill"),limitTextEl=document.getElementById("limitText"),tapBtn=document.getElementById("tapBtn"),saveBtn=document.getElementById("saveBtn"),withdrawBtn=document.getElementById("withdrawBtn"),requestForm=document.getElementById("requestForm"),nameEl=document.getElementById("name"),contactEl=document.getElementById("contact"),directionEl=document.getElementById("direction"),amountEl=document.getElementById("amount"),commentEl=document.getElementById("comment");
+function saveState(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}
+function fmt(n){return new Intl.NumberFormat("ru-RU").format(n);}
+function updateUI(){dailyEl.textContent=fmt(state.daily);bankEl.textContent=fmt(state.bank);totalEl.textContent=fmt(state.daily+state.bank);const rem=Math.max(0,DAILY_LIMIT-state.daily);remainingEl.textContent=fmt(rem);progressFillEl.style.width=Math.min(100,state.daily/DAILY_LIMIT*100)+"%";if(state.daily>=DAILY_LIMIT){tapBtn.disabled=true;limitTextEl.textContent="Лимит на сегодня достигнут. Отправь CC в копилку.";}else{tapBtn.disabled=false;limitTextEl.textContent="Каждый тап даёт "+REWARD_PER_TAP+" CC.";}}
+function sendPayload(payload){if(!tg){alert("Открой mini app из Telegram-бота, чтобы данные ушли прямо в бота.");return false;}tg.sendData(JSON.stringify(payload));return true;}
+tapBtn.addEventListener("click",()=>{if(state.daily>=DAILY_LIMIT)return;state.daily+=REWARD_PER_TAP;if(state.daily>DAILY_LIMIT)state.daily=DAILY_LIMIT;if(navigator.vibrate)navigator.vibrate(30);saveState();updateUI();});
+saveBtn.addEventListener("click",()=>{if(state.daily<=0){limitTextEl.textContent="Сначала заработай CC.";return;}state.bank+=state.daily;state.daily=0;saveState();updateUI();limitTextEl.textContent="CC отправлены в копилку.";});
+withdrawBtn.addEventListener("click",()=>{const total=state.bank+state.daily;const ok=sendPayload({type:"cc_withdraw_request",total_cc:total,bank_cc:state.bank,daily_cc:state.daily,usd_value:(total/1000).toFixed(2)});if(ok&&tg)tg.close();});
+requestForm.addEventListener("submit",e=>{e.preventDefault();const total=state.bank+state.daily;const ok=sendPayload({type:"exchange_request",name:nameEl.value.trim()||"—",contact:contactEl.value.trim()||"—",direction:directionEl.value,amount:amountEl.value.trim()||"—",comment:commentEl.value.trim()||"—",bank_cc:state.bank,daily_cc:state.daily,total_cc:total,usd_value:(total/1000).toFixed(2)});if(ok&&tg)tg.close();});
 updateUI();
