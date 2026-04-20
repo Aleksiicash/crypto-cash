@@ -4,7 +4,7 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Crypto Cash – Client Cabinet</title>
+  <title>Crypto Cash – Premium Desk</title>
   <meta name="theme-color" content="#080a0e" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,12 +24,14 @@
 
       <div class="hero-main">
         <div class="hero-logo">
-          <div class="cc-mark" aria-label="Crypto Cash">
-            <span class="ring"></span>
-            <span class="c">C</span>
-            <span class="c second">C</span>
+          <div class="cc-mark" aria-label="Crypto Cash premium logo">
+            <span class="ring outer"></span>
+            <span class="ring inner"></span>
+            <span class="c left">C</span>
+            <span class="c right">C</span>
             <span class="line line-1"></span>
             <span class="line line-2"></span>
+            <span class="core-glow"></span>
           </div>
         </div>
 
@@ -88,7 +90,6 @@
 
         <form id="requestForm" class="form">
           <label><span>Имя</span><input id="name" type="text" placeholder="Ваше имя" /></label>
-
           <label><span>Направление</span>
             <select id="direction">
               <option>USDT → RUB</option>
@@ -101,15 +102,12 @@
               <option>RUB → EUR</option>
             </select>
           </label>
-
           <label><span>Сумма</span><input id="amount" type="text" placeholder="Например: 2500 USDT" /></label>
           <label><span>Комментарий</span><textarea id="comment" rows="4" placeholder="Дополнительные детали"></textarea></label>
           <button class="btn btn-primary full" type="submit">Отправить заявку</button>
         </form>
 
-        <div class="note">
-          Пока менеджер отвечает, сыграй в игру ниже и копи <strong>CC</strong>.
-        </div>
+        <div class="note">Пока менеджер отвечает, сыграй в игру ниже и копи <strong>CC</strong>.</div>
 
         <div id="successBox" class="success-box hidden">
           <div class="success-title">Заявка отправлена</div>
