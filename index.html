@@ -4,7 +4,7 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Crypto Cash – Lux Upgrade</title>
+  <title>Crypto Cash – Client Cabinet</title>
   <meta name="theme-color" content="#080a0e" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,8 @@
 
       <div class="hero-main">
         <div class="hero-logo">
-          <div class="cc-mark" aria-label="CC currency symbol">
+          <div class="cc-mark" aria-label="Crypto Cash">
+            <span class="ring"></span>
             <span class="c">C</span>
             <span class="c second">C</span>
             <span class="line line-1"></span>
@@ -36,6 +37,41 @@
           <h1>Crypto Cash</h1>
           <p>Безопасный обмен USDT, USDC, USD, EUR, RUB в Краснодаре.</p>
           <p class="muted">Конфиденциальность клиента — наш приоритет. Заявки отправляются прямо в Telegram-бота.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel cabinet-panel">
+      <div class="panel-head">
+        <div>
+          <div class="eyebrow">CLIENT CABINET</div>
+          <h2>Личный кабинет</h2>
+        </div>
+        <div class="chip">PRIVATE CLIENT</div>
+      </div>
+
+      <div class="cabinet-grid">
+        <div class="profile-card">
+          <div class="avatar" id="avatar">CC</div>
+          <div class="profile-main">
+            <div class="profile-name" id="profileName">Клиент Crypto Cash</div>
+            <div class="profile-sub" id="profileSub">Открой mini app из Telegram</div>
+          </div>
+        </div>
+
+        <div class="cabinet-stats">
+          <div class="mini-stat">
+            <span>Статус</span>
+            <strong id="clientLevel">STANDARD</strong>
+          </div>
+          <div class="mini-stat">
+            <span>Всего CC</span>
+            <strong id="clientTotal">0</strong>
+          </div>
+          <div class="mini-stat">
+            <span>Окно лимита</span>
+            <strong id="windowTimer">24:00:00</strong>
+          </div>
         </div>
       </div>
     </section>
@@ -92,7 +128,7 @@
 
         <div class="balance-row">
           <div class="balance-card">
-            <span>Сегодня</span>
+            <span>За 24 часа</span>
             <strong><span id="daily">0</span> <small>CC</small></strong>
           </div>
           <div class="balance-card">
@@ -103,10 +139,15 @@
 
         <div class="progress-wrap">
           <div class="progress-meta">
-            <span>Дневной лимит</span>
+            <span>Лимит 24 часа</span>
             <span><span id="remaining">1000</span> CC осталось</span>
           </div>
           <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+        </div>
+
+        <div class="cooldown-box">
+          <div class="cooldown-title">Следующее полное окно</div>
+          <div class="cooldown-time" id="cooldownTime">24:00:00</div>
         </div>
 
         <div class="tap-wrap">
