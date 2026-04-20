@@ -1,7 +1,7 @@
 const DAILY_LIMIT = 1000;
 const REWARD_PER_TAP = 20;
 const WINDOW_MS = 24 * 60 * 60 * 1000;
-const STORAGE_KEY = "crypto_cash_direct_bot_ref_v1";
+const STORAGE_KEY = "crypto_cash_exactish_v1";
 
 let tg = null;
 let state = { windowStart: 0, daily: 0, bank: 0 };
@@ -17,9 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
   normalizeWindow(true);
 
   const dailyEl = document.getElementById("daily");
-  const dailyInlineEl = document.getElementById("dailyInline");
   const bankEl = document.getElementById("bank");
-  const clientTotalEl = document.getElementById("clientTotal");
+  const totalEl = document.getElementById("clientTotal");
+  const totalUsdEl = document.getElementById("totalUsd");
+  const remainingEl = document.getElementById("remaining");
   const progressFillEl = document.getElementById("progressFill");
   const limitTextEl = document.getElementById("limitText");
   const tapBtn = document.getElementById("tapBtn");
@@ -33,13 +34,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const floatersEl = document.getElementById("floaters");
   const successBox = document.getElementById("successBox");
   const cooldownTimeEl = document.getElementById("cooldownTime");
+  const profileNameTopEl = document.getElementById("profileNameTop");
+  const profileIdTopEl = document.getElementById("profileIdTop");
   const profileNameEl = document.getElementById("profileName");
   const profileSubEl = document.getElementById("profileSub");
   const avatarEl = document.getElementById("avatar");
-  const clientLevelEl = document.getElementById("clientLevel");
-  const windowTimerEl = document.getElementById("windowTimer");
   const dailyUsdEl = document.getElementById("dailyUsd");
   const bankUsdEl = document.getElementById("bankUsd");
+  const masterProgressTextEl = document.getElementById("masterProgressText");
+  const masterProgressFillEl = document.getElementById("masterProgressFill");
 
   function saveState() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -55,13 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function totalCC() {
     return (Number(state.bank) || 0) + (Number(state.daily) || 0);
-  }
-
-  function levelByTotal(total) {
-    if (total >= 50000) return "BLACK";
-    if (total >= 15000) return "GOLD";
-    if (total >= 5000) return "SILVER";
-    return "STANDARD";
   }
 
   function formatDuration(ms) {
@@ -96,7 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function fillProfile() {
     if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
       const user = tg.initDataUnsafe.user;
-      const fullName = [user.first_name, user.last_name].filter(Boolean).join(" ").trim() || "Crypto Cash Client";
+      const fullName = [user.first_name, user.last_name].filter(Boolean).join(" ").trim() || "Антон";
+      profileNameTopEl.textContent = fullName;
+      profileIdTopEl.textContent = `ID: ${user.id}`;
       profileNameEl.textContent = fullName;
       profileSubEl.textContent = user.username ? `@${user.username} • ID ${user.id}` : `ID ${user.id}`;
       avatarEl.textContent = (user.first_name || "C").slice(0, 1).toUpperCase();
@@ -108,18 +106,21 @@ document.addEventListener("DOMContentLoaded", () => {
     normalizeWindow();
 
     dailyEl.textContent = fmt(state.daily);
-    dailyInlineEl.textContent = fmt(state.daily);
     bankEl.textContent = fmt(state.bank);
-    clientTotalEl.textContent = fmt(totalCC());
+    totalEl.textContent = fmt(totalCC());
+
     dailyUsdEl.textContent = `≈ ${ccToUsd(state.daily)} USD`;
     bankUsdEl.textContent = `≈ ${ccToUsd(state.bank)} USD`;
+    totalUsdEl.textContent = `≈ ${ccToUsd(totalCC())} USD`;
+
+    const rem = Math.max(0, DAILY_LIMIT - state.daily);
+    remainingEl.textContent = fmt(rem);
 
     progressFillEl.style.width = `${Math.min(100, (state.daily / DAILY_LIMIT) * 100)}%`;
+    cooldownTimeEl.textContent = formatDuration(nextResetIn());
 
-    const timer = formatDuration(nextResetIn());
-    cooldownTimeEl.textContent = timer;
-    windowTimerEl.textContent = timer;
-    clientLevelEl.textContent = levelByTotal(totalCC());
+    masterProgressTextEl.textContent = `${fmt(state.daily)} / 1000`;
+    masterProgressFillEl.style.width = `${Math.min(100, (state.daily / 1000) * 100)}%`;
 
     if (state.daily >= DAILY_LIMIT) {
       tapBtn.disabled = true;

@@ -4,42 +4,33 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Crypto Cash — Luxury Desk</title>
-  <meta name="theme-color" content="#08070d" />
+  <title>Crypto Cash — Private Exchange Desk</title>
+  <meta name="theme-color" content="#08070b" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="bg"></div>
-  <div class="noise"></div>
-  <div class="particles"></div>
+  <div class="bg-texture"></div>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
 
-  <main class="shell">
-    <section class="panel hero">
-      <div class="top-pills">
-        <span class="pill">PRIVATE EXCHANGE DESK</span>
-        <span class="pill">KRASNODAR</span>
-      </div>
-
-      <div class="hero-grid">
-        <div class="hero-logo-box">
-          <div class="hero-logo-glow"></div>
-          <div class="hero-logo">
+  <main class="desktop-shell">
+    <aside class="sidebar panel">
+      <div class="brand-box">
+        <div class="brand-coin-wrap">
+          <div class="brand-coin-glow"></div>
+          <div class="brand-coin">
             <svg viewBox="0 0 240 240" class="logo-svg" aria-label="Crypto Cash logo">
               <defs>
-                <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+                <linearGradient id="goldGradMain" x1="0" y1="0" x2="1" y2="1">
                   <stop offset="0%" stop-color="#fff2bf"/>
-                  <stop offset="35%" stop-color="#f0c76d"/>
-                  <stop offset="70%" stop-color="#c98a28"/>
-                  <stop offset="100%" stop-color="#8e5611"/>
+                  <stop offset="30%" stop-color="#f2cf79"/>
+                  <stop offset="65%" stop-color="#cf932e"/>
+                  <stop offset="100%" stop-color="#8c5310"/>
                 </linearGradient>
-                <radialGradient id="ringGlow" cx="50%" cy="50%" r="60%">
-                  <stop offset="0%" stop-color="rgba(255,220,130,0.35)"/>
-                  <stop offset="100%" stop-color="rgba(255,220,130,0)"/>
-                </radialGradient>
-                <filter id="softGlow">
+                <filter id="softGlowMain">
                   <feGaussianBlur stdDeviation="3.5" result="blur"/>
                   <feMerge>
                     <feMergeNode in="blur"/>
@@ -47,91 +38,56 @@
                   </feMerge>
                 </filter>
               </defs>
-
-              <circle cx="120" cy="120" r="90" fill="url(#ringGlow)" />
-              <circle cx="120" cy="120" r="80" fill="none" stroke="url(#goldGrad)" stroke-width="5" filter="url(#softGlow)"/>
-              <circle cx="120" cy="120" r="58" fill="none" stroke="url(#goldGrad)" stroke-opacity="0.55" stroke-width="3"/>
-
-              <line x1="112" y1="38" x2="112" y2="202" stroke="url(#goldGrad)" stroke-width="7" stroke-linecap="round" filter="url(#softGlow)"/>
-              <line x1="128" y1="38" x2="128" y2="202" stroke="url(#goldGrad)" stroke-width="7" stroke-linecap="round" filter="url(#softGlow)"/>
-
-              <line x1="46" y1="92" x2="194" y2="92" stroke="url(#goldGrad)" stroke-width="8" stroke-linecap="round" filter="url(#softGlow)"/>
-              <line x1="46" y1="122" x2="194" y2="122" stroke="url(#goldGrad)" stroke-width="8" stroke-linecap="round" filter="url(#softGlow)"/>
-
-              <text x="88" y="146" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldGrad)" style="font-family: Inter, Arial, sans-serif;">C</text>
-              <text x="142" y="146" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldGrad)" style="font-family: Inter, Arial, sans-serif;">C</text>
+              <circle cx="120" cy="120" r="83" fill="none" stroke="url(#goldGradMain)" stroke-width="5" filter="url(#softGlowMain)"/>
+              <circle cx="120" cy="120" r="61" fill="none" stroke="url(#goldGradMain)" stroke-opacity="0.42" stroke-width="3"/>
+              <line x1="112" y1="38" x2="112" y2="202" stroke="url(#goldGradMain)" stroke-width="7" stroke-linecap="round"/>
+              <line x1="128" y1="38" x2="128" y2="202" stroke="url(#goldGradMain)" stroke-width="7" stroke-linecap="round"/>
+              <line x1="44" y1="94" x2="196" y2="94" stroke="url(#goldGradMain)" stroke-width="8" stroke-linecap="round"/>
+              <line x1="44" y1="124" x2="196" y2="124" stroke="url(#goldGradMain)" stroke-width="8" stroke-linecap="round"/>
+              <text x="88" y="146" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldGradMain)" style="font-family: Inter, Arial, sans-serif;">C</text>
+              <text x="142" y="146" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldGradMain)" style="font-family: Inter, Arial, sans-serif;">C</text>
             </svg>
           </div>
         </div>
-
-        <div class="hero-copy">
-          <div class="brand-kicker">CRYPTO CASH</div>
-          <h1>Crypto Cash</h1>
-          <div class="subtitle">PRIVATE EXCHANGE DESK</div>
-          <p class="hero-text">
-            Безопасный обмен USDT, USDC, USD, EUR, RUB в Краснодаре.
-          </p>
-          <p class="hero-sub">
-            Конфиденциальность клиента — наш приоритет. Заявки отправляются прямо в Telegram-бота.
-          </p>
-
-          <div class="hero-features">
-            <div class="feature-badge">Безопасно</div>
-            <div class="feature-badge">Анонимно</div>
-            <div class="feature-badge">Быстро</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel cabinet">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">CLIENT CABINET</div>
-          <h2>Личный кабинет</h2>
-        </div>
-        <div class="status-pill" id="clientLevel">STANDARD</div>
+        <div class="brand-title">CRYPTO CASH</div>
+        <div class="brand-subtitle">PRIVATE EXCHANGE DESK</div>
       </div>
 
-      <div class="cabinet-grid">
-        <div class="card profile-card">
-          <div class="avatar" id="avatar">CC</div>
-          <div>
-            <div class="profile-name" id="profileName">Crypto Cash Client</div>
-            <div class="profile-sub" id="profileSub">Личный кабинет доступен в Telegram mini app</div>
-          </div>
-        </div>
+      <nav class="side-nav">
+        <button class="nav-item active">🏠 <span>Главная</span></button>
+        <button class="nav-item">🧾 <span>Заявки</span></button>
+        <button class="nav-item">⭐ <span>Рейтинг</span></button>
+        <button class="nav-item">👛 <span>Кошелёк</span></button>
+        <button class="nav-item">👤 <span>Профиль</span></button>
+      </nav>
 
-        <div class="card mini-stat green">
-          <div class="mini-label">Сегодня</div>
-          <div class="mini-value"><span id="daily">0</span> CC</div>
-          <div class="mini-sub" id="dailyUsd">≈ 0.000 USD</div>
-        </div>
-
-        <div class="card mini-stat purple">
-          <div class="mini-label">Копилка</div>
-          <div class="mini-value"><span id="bank">0</span> CC</div>
-          <div class="mini-sub" id="bankUsd">≈ 0.000 USD</div>
-        </div>
-
-        <div class="card mini-stat gold">
-          <div class="mini-label">Всего CC</div>
-          <div class="mini-value"><span id="clientTotal">0</span> CC</div>
-          <div class="mini-sub" id="windowTimer">24:00:00</div>
-        </div>
+      <div class="vip-card panel-lite">
+        <div class="vip-crown">👑</div>
+        <div class="vip-title">Стань VIP клиентом</div>
+        <div class="vip-text">Больше возможностей и больше привилегий</div>
+        <button class="gold-btn mini">ПОДРОБНЕЕ</button>
       </div>
-    </section>
+    </aside>
 
-    <section class="main-grid">
-      <section class="panel request">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">НОВАЯ ЗАЯВКА</div>
-            <h2>Новая заявка</h2>
-          </div>
+    <section class="workspace">
+      <header class="topbar panel">
+        <div class="mini-tags">
+          <div class="mini-tag">🔒 Безопасно</div>
+          <div class="mini-tag">🕶 Анонимно</div>
+          <div class="mini-tag">⚡ Быстро</div>
         </div>
+        <div class="topbar-right">
+          <div class="profile-chip">👤 <strong id="profileNameTop">Антон</strong><span id="profileIdTop">ID: —</span></div>
+          <div class="vip-chip">👑 VIP CLIENT<br><span>УРОВЕНЬ 3</span></div>
+          <div class="lang-chip">RU ▾</div>
+        </div>
+      </header>
 
-        <form id="requestForm" class="form">
+      <section class="request-strip panel">
+        <div class="section-title">НОВАЯ ЗАЯВКА</div>
+        <div class="section-sub">Мы свяжемся с вами и поможем с обменом</div>
+
+        <form id="requestForm" class="request-grid">
           <label class="field">
             <span>Направление обмена</span>
             <select id="direction">
@@ -158,100 +114,151 @@
 
           <label class="field">
             <span>Комментарий</span>
-            <textarea id="comment" rows="3" placeholder="Необязательно"></textarea>
+            <input id="comment" type="text" placeholder="Необязательно" />
           </label>
 
-          <button class="btn btn-gold" type="submit">ОТПРАВИТЬ ЗАЯВКУ</button>
+          <button class="gold-btn submit-btn" type="submit">ОТПРАВИТЬ ЗАЯВКУ ✈</button>
         </form>
 
-        <div class="card wait-box">
-          <div class="wait-icon">⌛</div>
-          <div class="wait-copy">
-            Пока менеджер отвечает,<br><strong>сыграй в игру ниже и копи CC</strong>
-          </div>
-        </div>
-
-        <div id="successBox" class="success-box hidden">
-          <div class="success-check">✓</div>
-          <div class="success-title">ЗАЯВКА ОТПРАВЛЕНА!</div>
-          <div class="success-text">Мы получили вашу заявку и уже передали её менеджеру.</div>
+        <div class="wait-line panel-lite">
+          <span class="shield">🛡</span>
+          Пока менеджер отвечает, сыграй в игру ниже и <strong>копи CC</strong>
         </div>
       </section>
 
-      <section class="panel game">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">CC TOKEN</div>
-            <h2>Играй и копи CC</h2>
+      <section class="stats-row">
+        <div class="stat-card green panel">
+          <div class="stat-label">📅 СЕГОДНЯ</div>
+          <div class="stat-value"><span id="daily">0</span> CC</div>
+          <div class="stat-sub" id="dailyUsd">≈ 0.000 USD</div>
+          <div class="chart-line green-line"></div>
+        </div>
+
+        <div class="stat-card purple panel">
+          <div class="stat-label">🐷 КОПИЛКА</div>
+          <div class="stat-value"><span id="bank">0</span> CC</div>
+          <div class="stat-sub" id="bankUsd">≈ 0.000 USD</div>
+          <div class="chart-line purple-line"></div>
+        </div>
+
+        <div class="stat-card gold panel">
+          <div class="stat-label">💰 ВСЕГО CC</div>
+          <div class="stat-value"><span id="clientTotal">0</span> CC</div>
+          <div class="stat-sub" id="totalUsd">≈ 0.000 USD</div>
+          <div class="chart-line gold-line"></div>
+        </div>
+
+        <div class="stat-card timer panel">
+          <div class="stat-label">🕓 ДО СЛЕДУЮЩЕГО ОКНА</div>
+          <div class="timer-big" id="cooldownTime">24:00:00</div>
+          <div class="timer-row">
+            <span>ЛИМИТ 24 ЧАСА</span>
+            <span><span id="remaining">1000</span> / 1000 CC</span>
           </div>
-          <div class="rate-pill">1000 CC = $0.10</div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
         </div>
+      </section>
 
-        <div class="limit-row">
-          <span>ЛИМИТ 24 ЧАСА</span>
-          <span><span id="dailyInline">0</span> / 1000 CC</span>
-        </div>
-        <div class="progress-track">
-          <div class="progress-fill" id="progressFill"></div>
-        </div>
+      <section class="game-achievements">
+        <section class="game-main panel">
+          <div class="game-title">ИГРАЙ И ЗАРАБАТЫВАЙ CC</div>
+          <div class="game-sub">Нажимай на монету и получай количество CC</div>
 
-        <div class="card timer-box">
-          <div class="timer-label">ДО СЛЕДУЮЩЕГО ОКНА</div>
-          <div class="timer-value" id="cooldownTime">24:00:00</div>
-          <div class="timer-sub">Новое окно откроется только после таймера</div>
-        </div>
+          <div class="tap-area">
+            <span class="tap-float static a">+1 CC</span>
+            <span class="tap-float static b">+1 CC</span>
+            <span class="tap-float static c">+1 CC</span>
+            <span class="tap-float static d">+1 CC</span>
+            <span class="tap-float static e">+1 CC</span>
 
-        <div class="tap-zone">
-          <div class="tap-glow"></div>
-          <button id="tapBtn" class="tap-btn" type="button" aria-label="Tap for CC">
-            <div class="tap-coin">
-              <svg viewBox="0 0 240 240" class="logo-svg tap-svg" aria-hidden="true">
-                <defs>
-                  <linearGradient id="goldGrad2" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#fff2bf"/>
-                    <stop offset="35%" stop-color="#f0c76d"/>
-                    <stop offset="70%" stop-color="#c98a28"/>
-                    <stop offset="100%" stop-color="#8e5611"/>
-                  </linearGradient>
-                  <filter id="softGlow2">
-                    <feGaussianBlur stdDeviation="3.5" result="blur"/>
-                    <feMerge>
-                      <feMergeNode in="blur"/>
-                      <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                  </filter>
-                </defs>
+            <div class="tap-glow"></div>
+            <button id="tapBtn" class="tap-button" type="button" aria-label="Tap coin">
+              <div class="tap-coin">
+                <svg viewBox="0 0 240 240" class="logo-svg" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="goldGradTap" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#fff2bf"/>
+                      <stop offset="30%" stop-color="#f2cf79"/>
+                      <stop offset="65%" stop-color="#cf932e"/>
+                      <stop offset="100%" stop-color="#8c5310"/>
+                    </linearGradient>
+                    <filter id="softGlowTap">
+                      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+                      <feMerge>
+                        <feMergeNode in="blur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <circle cx="120" cy="120" r="83" fill="none" stroke="url(#goldGradTap)" stroke-width="5" filter="url(#softGlowTap)"/>
+                  <circle cx="120" cy="120" r="61" fill="none" stroke="url(#goldGradTap)" stroke-opacity="0.42" stroke-width="3"/>
+                  <line x1="112" y1="38" x2="112" y2="202" stroke="url(#goldGradTap)" stroke-width="7" stroke-linecap="round"/>
+                  <line x1="128" y1="38" x2="128" y2="202" stroke="url(#goldGradTap)" stroke-width="7" stroke-linecap="round"/>
+                  <line x1="44" y1="94" x2="196" y2="94" stroke="url(#goldGradTap)" stroke-width="8" stroke-linecap="round"/>
+                  <line x1="44" y1="124" x2="196" y2="124" stroke="url(#goldGradTap)" stroke-width="8" stroke-linecap="round"/>
+                  <text x="88" y="146" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldGradTap)" style="font-family: Inter, Arial, sans-serif;">C</text>
+                  <text x="142" y="146" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldGradTap)" style="font-family: Inter, Arial, sans-serif;">C</text>
+                </svg>
+              </div>
+            </button>
 
-                <circle cx="120" cy="120" r="80" fill="none" stroke="url(#goldGrad2)" stroke-width="5" filter="url(#softGlow2)"/>
-                <circle cx="120" cy="120" r="58" fill="none" stroke="url(#goldGrad2)" stroke-opacity="0.55" stroke-width="3"/>
-                <line x1="112" y1="38" x2="112" y2="202" stroke="url(#goldGrad2)" stroke-width="7" stroke-linecap="round"/>
-                <line x1="128" y1="38" x2="128" y2="202" stroke="url(#goldGrad2)" stroke-width="7" stroke-linecap="round"/>
-                <line x1="46" y1="92" x2="194" y2="92" stroke="url(#goldGrad2)" stroke-width="8" stroke-linecap="round"/>
-                <line x1="46" y1="122" x2="194" y2="122" stroke="url(#goldGrad2)" stroke-width="8" stroke-linecap="round"/>
-                <text x="88" y="146" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldGrad2)" style="font-family: Inter, Arial, sans-serif;">C</text>
-                <text x="142" y="146" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldGrad2)" style="font-family: Inter, Arial, sans-serif;">C</text>
-              </svg>
+            <div id="floaters" class="floaters"></div>
+          </div>
+
+          <div class="tap-caption">ТАПАЙ И ЗАРАБАТЫВАЙ CC</div>
+          <div class="limit-text" id="limitText"></div>
+        </section>
+
+        <aside class="right-stack">
+          <div class="panel boost-card">
+            <div class="boost-title">⚡ БУСТ x2</div>
+            <div class="boost-text">Удваивает выпавшее количество CC</div>
+            <div class="boost-timer">⏱ 00:29:45</div>
+            <button class="gold-btn mini">АКТИВИРОВАТЬ</button>
+          </div>
+
+          <div class="panel achieve-card">
+            <div class="achieve-title">🏆 ДОСТИЖЕНИЯ</div>
+
+            <div class="achieve-item done">
+              <div class="achieve-main">
+                <div class="achieve-name">ПЕРВЫЙ ШАГ</div>
+                <div class="achieve-sub">Заработай первые 10 CC</div>
+              </div>
+              <div class="check">✔</div>
             </div>
-          </button>
-          <div id="floaters" class="floaters"></div>
-        </div>
 
-        <div class="tap-caption">Тапай и зарабатывай CC</div>
-        <div id="limitText" class="limit-text"></div>
+            <div class="achieve-item done">
+              <div class="achieve-main">
+                <div class="achieve-name">ПОСТОЯНСТВО</div>
+                <div class="achieve-sub">Заработай 100 CC за день</div>
+              </div>
+              <div class="check">✔</div>
+            </div>
 
-        <div class="game-actions">
-          <button id="saveBtn" class="btn btn-dark" type="button">В КОПИЛКУ</button>
-          <button id="withdrawBtn" class="btn btn-gold" type="button">ОБМЕНЯТЬ CC</button>
-        </div>
+            <div class="achieve-item">
+              <div class="achieve-main">
+                <div class="achieve-name">МАСТЕР</div>
+                <div class="achieve-sub">Заработай 1000 CC за день</div>
+              </div>
+              <div class="progress-side">
+                <span id="masterProgressText">0 / 1000</span>
+                <div class="side-progress"><div class="side-progress-fill" id="masterProgressFill"></div></div>
+              </div>
+            </div>
+          </div>
+        </aside>
       </section>
-    </section>
 
-    <section class="panel bottom-strip">
-      <div class="strip-item">SSL ЗАЩИТА</div>
-      <div class="strip-item">ПОЛНАЯ АНОНИМНОСТЬ</div>
-      <div class="strip-item">ПОДДЕРЖКА 24/7</div>
-      <div class="strip-item">ЛУЧШИЙ КУРС</div>
-      <div class="strip-item">НАДЁЖНОСТЬ</div>
+      <section class="footer-row panel">
+        <div class="footer-item">🛡 SSL ЗАЩИТА<br><span>Ваши данные под защитой</span></div>
+        <div class="footer-item">🥷 ПОЛНАЯ АНОНИМНОСТЬ<br><span>Никаких лишних вопросов</span></div>
+        <div class="footer-item">🎧 ПОДДЕРЖКА 24/7<br><span>Всегда на связи</span></div>
+        <div class="footer-item">💰 ЛУЧШИЙ КУРС<br><span>Всегда выгодные условия</span></div>
+        <div class="footer-item">🛡 НАДЁЖНОСТЬ<br><span>Опыт и репутация</span></div>
+      </section>
     </section>
   </main>
 
