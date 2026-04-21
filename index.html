@@ -4,54 +4,88 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Crypto Cash — Private Exchange Desk</title>
-  <meta name="theme-color" content="#07070b" />
+  <title>Crypto Cash Premium</title>
+  <meta name="theme-color" content="#07080d" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="bg"></div>
-  <div class="grain"></div>
+  <div class="bg-shimmer"></div>
+  <div class="bg-particles"></div>
 
   <main class="app">
-    <section class="brand panel">
-      <div class="brand-top">
-        <div class="chip">🔒 БЕЗОПАСНО</div>
-        <div class="chip">🥷 АНОНИМНО</div>
-        <div class="chip">⚡ БЫСТРО</div>
+    <section class="topbar card">
+      <div class="topbar-left">
+        <div class="security-pill">🔒 PRIVATE DESK</div>
+        <div class="security-pill">⚡ FAST DEALS</div>
       </div>
 
-      <div class="brand-main">
-        <img src="logo.png" alt="Crypto Cash" class="brand-logo" />
-        <div class="brand-copy">
-          <div class="brand-kicker">CRYPTO CASH</div>
-          <h1>Crypto Cash</h1>
-          <p>PRIVATE EXCHANGE DESK</p>
+      <div class="client-chip">
+        <div class="client-avatar" id="clientAvatar">C</div>
+        <div class="client-meta">
+          <div class="client-name" id="clientNameTop">Клиент</div>
+          <div class="client-id" id="clientIdTop">ID: —</div>
         </div>
       </div>
     </section>
 
-    <section class="topbar panel">
-      <div class="profile">
-        <div class="profile-left">
-          <div class="profile-icon">👤</div>
-          <div>
-            <div class="profile-name" id="profileNameTop">Антон</div>
-            <div class="profile-id" id="profileIdTop">ID: —</div>
+    <section class="hero card">
+      <div class="hero-left">
+        <div class="logo-stage">
+          <div class="logo-aura"></div>
+          <div class="logo-reflection"></div>
+          <div class="logo-coin">
+            <svg viewBox="0 0 240 240" class="logo-svg" aria-label="Crypto Cash logo">
+              <defs>
+                <linearGradient id="goldGradA" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#fff6c7"/>
+                  <stop offset="30%" stop-color="#f2cf78"/>
+                  <stop offset="68%" stop-color="#cf912e"/>
+                  <stop offset="100%" stop-color="#8a5211"/>
+                </linearGradient>
+                <filter id="goldGlowA">
+                  <feGaussianBlur stdDeviation="3.2" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+              <circle cx="120" cy="120" r="85" fill="none" stroke="url(#goldGradA)" stroke-width="5" filter="url(#goldGlowA)"/>
+              <circle cx="120" cy="120" r="64" fill="none" stroke="url(#goldGradA)" stroke-opacity="0.35" stroke-width="3"/>
+              <line x1="111" y1="38" x2="111" y2="203" stroke="url(#goldGradA)" stroke-width="7" stroke-linecap="round"/>
+              <line x1="129" y1="38" x2="129" y2="203" stroke="url(#goldGradA)" stroke-width="7" stroke-linecap="round"/>
+              <line x1="42" y1="95" x2="198" y2="95" stroke="url(#goldGradA)" stroke-width="8" stroke-linecap="round"/>
+              <line x1="42" y1="126" x2="198" y2="126" stroke="url(#goldGradA)" stroke-width="8" stroke-linecap="round"/>
+              <text x="88" y="147" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldGradA)" style="font-family: Inter, Arial, sans-serif;">C</text>
+              <text x="142" y="147" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldGradA)" style="font-family: Inter, Arial, sans-serif;">C</text>
+            </svg>
           </div>
         </div>
-        <div class="vip">👑 VIP CLIENT<br><span>УРОВЕНЬ 3</span></div>
+      </div>
+
+      <div class="hero-right">
+        <div class="eyebrow">PRIVATE EXCHANGE DESK</div>
+        <h1>Crypto Cash</h1>
+        <p class="lead">Премиальный обмен USDT, USDC, USD, EUR и RUB в банковском стиле.</p>
+        <p class="sublead">Конфиденциальность клиента — наш приоритет. Заявки отправляются прямо в Telegram-бота.</p>
+
+        <div class="hero-badges">
+          <span>Безопасно</span>
+          <span>Анонимно</span>
+          <span>Премиум сервис</span>
+        </div>
       </div>
     </section>
 
-    <section class="request panel">
-      <div class="section-title">НОВАЯ ЗАЯВКА</div>
+    <section class="request card">
+      <div class="section-title">Новая заявка</div>
       <div class="section-sub">Мы свяжемся с вами и поможем с обменом</div>
 
       <form id="requestForm" class="request-grid">
-        <label class="field field-full">
+        <label class="field wide">
           <span>Направление обмена</span>
           <select id="direction">
             <option>USDT → RUB</option>
@@ -75,70 +109,98 @@
           <input id="name" type="text" placeholder="Антон" />
         </label>
 
-        <label class="field field-full">
+        <label class="field">
           <span>Комментарий</span>
           <input id="comment" type="text" placeholder="Необязательно" />
         </label>
 
-        <button class="gold-btn field-full" type="submit">ОТПРАВИТЬ ЗАЯВКУ ✈</button>
+        <button class="gold-btn submit-btn" type="submit">ОТПРАВИТЬ ЗАЯВКУ ✈</button>
       </form>
 
-      <div class="notice">
-        🛡 Пока менеджер отвечает, сыграй в игру ниже и <strong>копи CC</strong>
-      </div>
+      <div class="play-note">🛡 Пока менеджер отвечает, сыграй в игру ниже и <strong>копи CC</strong></div>
 
-      <div id="successBox" class="success hidden">
-        <div class="success-check">✓</div>
-        <div class="success-title">ЗАЯВКА ОТПРАВЛЕНА!</div>
-        <div class="success-text">Мы получили заявку и уже передали её менеджеру.</div>
+      <div id="successBox" class="success-box hidden">
+        <div class="success-icon">✓</div>
+        <div class="success-title">ЗАЯВКА ОТПРАВЛЕНА</div>
+        <div class="success-text">Мы уже передали её менеджеру.</div>
       </div>
     </section>
 
-    <section class="stats-row">
-      <div class="panel stat today">
-        <div class="stat-label">📅 СЕГОДНЯ</div>
+    <section class="stats">
+      <div class="stat-card stat-green card">
+        <div class="stat-label">СЕГОДНЯ</div>
         <div class="stat-value"><span id="daily">0</span> CC</div>
         <div class="stat-sub" id="dailyUsd">≈ 0.000 USD</div>
       </div>
 
-      <div class="panel stat piggy">
-        <div class="stat-label">🐷 КОПИЛКА</div>
+      <div class="stat-card stat-purple card">
+        <div class="stat-label">КОПИЛКА</div>
         <div class="stat-value"><span id="bank">0</span> CC</div>
         <div class="stat-sub" id="bankUsd">≈ 0.000 USD</div>
       </div>
+
+      <div class="stat-card stat-timer card">
+        <div class="stat-label">ДО СЛЕДУЮЩЕГО ОКНА</div>
+        <div class="timer-big" id="cooldownTime">24:00:00</div>
+        <div class="timer-row">
+          <span>ЛИМИТ 24 ЧАСА</span>
+          <span><span id="remaining">1000</span> / 1000 CC</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
     </section>
 
-    <section class="panel timer-panel">
-      <div class="timer-label">🕓 ДО СЛЕДУЮЩЕГО ОКНА</div>
-      <div class="timer-value" id="cooldownTime">24:00:00</div>
-      <div class="timer-row">
-        <span>ЛИМИТ 24 ЧАСА</span>
-        <span><span id="remaining">1000</span> / 1000 CC</span>
+    <section class="game card">
+      <div class="game-head">
+        <div>
+          <div class="section-title">Играй и зарабатывай CC</div>
+          <div class="section-sub">Мощная 3D-тапалка с вибро и премиум-эффектами</div>
+        </div>
+        <div class="rate-chip">1000 CC = $0.10</div>
       </div>
-      <div class="progress">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
-    </section>
 
-    <section class="panel game">
-      <div class="section-title">ИГРАЙ И ЗАРАБАТЫВАЙ CC</div>
-      <div class="section-sub">Нажимай на монету и получай CC</div>
-
-      <div class="tap-area">
-        <span class="tap-note a">+1 CC</span>
-        <span class="tap-note b">+1 CC</span>
-        <span class="tap-note c">+1 CC</span>
-        <span class="tap-note d">+1 CC</span>
-
-        <div class="tap-glow"></div>
-        <button id="tapBtn" class="tap-btn" type="button" aria-label="Tap">
-          <img src="logo.png" alt="" class="tap-logo" />
+      <div class="tap-zone">
+        <div class="tap-beam"></div>
+        <div class="tap-shadow"></div>
+        <button id="tapBtn" class="tap-btn" type="button" aria-label="Tap for CC">
+          <div class="tap-reflection"></div>
+          <div class="tap-ring ring-1"></div>
+          <div class="tap-ring ring-2"></div>
+          <div class="tap-coin">
+            <svg viewBox="0 0 240 240" class="logo-svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="goldGradTapB" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#fff6c7"/>
+                  <stop offset="30%" stop-color="#f2cf78"/>
+                  <stop offset="68%" stop-color="#cf912e"/>
+                  <stop offset="100%" stop-color="#8a5211"/>
+                </linearGradient>
+                <filter id="goldGlowTapB">
+                  <feGaussianBlur stdDeviation="3.2" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+              <circle cx="120" cy="120" r="85" fill="none" stroke="url(#goldGradTapB)" stroke-width="5" filter="url(#goldGlowTapB)"/>
+              <circle cx="120" cy="120" r="64" fill="none" stroke="url(#goldGradTapB)" stroke-opacity="0.35" stroke-width="3"/>
+              <line x1="111" y1="38" x2="111" y2="203" stroke="url(#goldGradTapB)" stroke-width="7" stroke-linecap="round"/>
+              <line x1="129" y1="38" x2="129" y2="203" stroke="url(#goldGradTapB)" stroke-width="7" stroke-linecap="round"/>
+              <line x1="42" y1="95" x2="198" y2="95" stroke="url(#goldGradTapB)" stroke-width="8" stroke-linecap="round"/>
+              <line x1="42" y1="126" x2="198" y2="126" stroke="url(#goldGradTapB)" stroke-width="8" stroke-linecap="round"/>
+              <text x="88" y="147" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldGradTapB)" style="font-family: Inter, Arial, sans-serif;">C</text>
+              <text x="142" y="147" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldGradTapB)" style="font-family: Inter, Arial, sans-serif;">C</text>
+            </svg>
+          </div>
         </button>
         <div id="floaters" class="floaters"></div>
       </div>
 
       <div class="tap-caption">ТАПАЙ И ЗАРАБАТЫВАЙ CC</div>
-      <div id="limitText" class="limit-text"></div>
+      <div class="limit-text" id="limitText"></div>
 
       <div class="actions">
         <button id="saveBtn" class="dark-btn" type="button">В КОПИЛКУ</button>
@@ -146,11 +208,11 @@
       </div>
     </section>
 
-    <section class="panel footer-grid">
-      <div class="footer-item">🛡 SSL ЗАЩИТА</div>
-      <div class="footer-item">🥷 АНОНИМНОСТЬ</div>
-      <div class="footer-item">🎧 ПОДДЕРЖКА 24/7</div>
-      <div class="footer-item">💰 ЛУЧШИЙ КУРС</div>
+    <section class="footer card">
+      <div class="footer-item">SSL ЗАЩИТА</div>
+      <div class="footer-item">ПОЛНАЯ АНОНИМНОСТЬ</div>
+      <div class="footer-item">ПОДДЕРЖКА 24/7</div>
+      <div class="footer-item">ЛУЧШИЙ КУРС</div>
     </section>
   </main>
 
