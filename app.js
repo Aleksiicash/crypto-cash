@@ -95,15 +95,45 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function fillProfile() {
-    if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-      const user = tg.initDataUnsafe.user;
-      const fullName = [user.first_name, user.last_name].filter(Boolean).join(" ").trim() || "Клиент";
-      const username = user.username ? "@" + user.username : fullName;
-      clientNameTopEl.textContent = username;
-      clientIdTopEl.textContent = `ID: ${user.id}`;
-      clientAvatarEl.textContent = (user.first_name || fullName || "C").slice(0, 1).toUpperCase();
-      if (!nameEl.value && fullName) nameEl.value = fullName;
+    let user = null;
+
+    if (window.Telegram && Telegram.WebApp) {
+      try {
+        Telegram.WebApp.ready();
+        Telegram.WebApp.expand();
+        user = Telegram.WebApp.initDataUnsafe?.user || null;
+      } catch (e) {
+        console.error("Telegram user read error:", e);
+      }
     }
+
+    const clientNameTopEl = document.getElementById("clientNameTop");
+    const clientIdTopEl = document.getElementById("clientIdTop");
+    const clientAvatarEl = document.getElementById("clientAvatar");
+    const nameEl = document.getElementById("name");
+
+    if (!user) {
+      if (clientNameTopEl) clientNameTopEl.textContent = "Клиент";
+      if (clientIdTopEl) clientIdTopEl.textContent = "ID: —";
+      if (clientAvatarEl) clientAvatarEl.textContent = "C";
+      return;
+    }
+
+    const firstName = user.first_name || "";
+    const lastName = user.last_name || "";
+    const fullName = [firstName, lastName].filter(Boolean).join(" ").trim() || "Клиент";
+    const username = user.username ? `@${user.username}` : fullName;
+    const tgId = user.id ? String(user.id) : "—";
+
+    if (clientNameTopEl) clientNameTopEl.textContent = username;
+    if (clientIdTopEl) clientIdTopEl.textContent = `ID: ${tgId}`;
+    if (clientAvatarEl) clientAvatarEl.textContent = (firstName || fullName || "C").slice(0, 1).toUpperCase();
+
+    if (nameEl && !nameEl.value) {
+      nameEl.value = fullName;
+    }
+
+    console.log("Telegram user:", user);
   }
 
   function updateUI() {
