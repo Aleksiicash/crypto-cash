@@ -8,6 +8,33 @@ let state = { windowStart: 0, daily: 0, bank: 0 };
 const particles = [];
 let canvas, ctx, tapBtn, floatersEl, saveBtn;
 
+
+function parseTelegramUser() {
+  try {
+    if (!window.Telegram || !Telegram.WebApp) return null;
+    const tgApp = Telegram.WebApp;
+
+    if (tgApp.initDataUnsafe && tgApp.initDataUnsafe.user) {
+      return tgApp.initDataUnsafe.user;
+    }
+
+    if (tgApp.initData) {
+      const params = new URLSearchParams(tgApp.initData);
+      const rawUser = params.get("user");
+      if (rawUser) {
+        try {
+          return JSON.parse(rawUser);
+        } catch (e) {
+          console.error("Failed to parse raw initData user:", e);
+        }
+      }
+    }
+  } catch (e) {
+    console.error("parseTelegramUser error:", e);
+  }
+  return null;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const splash = document.getElementById("splashScreen");
   setTimeout(() => splash.classList.add("fade-out"), 1600);
@@ -95,27 +122,46 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function fillProfile() {
-    let user = null;
-
-    if (window.Telegram && Telegram.WebApp) {
-      try {
-        Telegram.WebApp.ready();
-        Telegram.WebApp.expand();
-        user = Telegram.WebApp.initDataUnsafe?.user || null;
-      } catch (e) {
-        console.error("Telegram user read error:", e);
-      }
-    }
-
     const clientNameTopEl = document.getElementById("clientNameTop");
     const clientIdTopEl = document.getElementById("clientIdTop");
     const clientAvatarEl = document.getElementById("clientAvatar");
     const nameEl = document.getElementById("name");
 
+    let user = parseTelegramUser();
+
+    if (!user && window.Telegram && Telegram.WebApp) {
+      try {
+        Telegram.WebApp.ready();
+        Telegram.WebApp.expand();
+      } catch (e) {
+        console.error("Telegram ready/expand error:", e);
+      }
+      user = parseTelegramUser();
+    }
+
     if (!user) {
       if (clientNameTopEl) clientNameTopEl.textContent = "Клиент";
       if (clientIdTopEl) clientIdTopEl.textContent = "ID: —";
       if (clientAvatarEl) clientAvatarEl.textContent = "C";
+
+      setTimeout(() => {
+        const delayedUser = parseTelegramUser();
+        if (!delayedUser) return;
+
+        const firstName = delayedUser.first_name || "";
+        const lastName = delayedUser.last_name || "";
+        const fullName = [firstName, lastName].filter(Boolean).join(" ").trim() || "Клиент";
+        const username = delayedUser.username ? `@${delayedUser.username}` : fullName;
+        const tgId = delayedUser.id ? String(delayedUser.id) : "—";
+
+        if (clientNameTopEl) clientNameTopEl.textContent = username;
+        if (clientIdTopEl) clientIdTopEl.textContent = `ID: ${tgId}`;
+        if (clientAvatarEl) clientAvatarEl.textContent = (firstName || fullName || "C").slice(0, 1).toUpperCase();
+        if (nameEl && !nameEl.value) nameEl.value = fullName;
+
+        console.log("Telegram user (delayed):", delayedUser);
+      }, 900);
+
       return;
     }
 
@@ -235,6 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   fillProfile();
+  setTimeout(fillProfile, 1200);
 
   tapBtn.addEventListener("click", (e) => {
     normalizeWindow();
