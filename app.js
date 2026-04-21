@@ -120,6 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return false;
     }
     try {
+      const user = (tg.initDataUnsafe && tg.initDataUnsafe.user) ? tg.initDataUnsafe.user : {};
       const compatiblePayload = {
         ...payload,
         action: payload.type,
@@ -127,10 +128,16 @@ document.addEventListener("DOMContentLoaded", () => {
         client_name: payload.name || "—",
         exchange_direction: payload.direction || "—",
         sum: payload.amount || "—",
+        amount_text: payload.amount || "—",
         notes: payload.comment || "—",
-        username: (tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.username) ? "@" + tg.initDataUnsafe.user.username : "",
-        user_id: (tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id) ? tg.initDataUnsafe.user.id : "",
-        source: "telegram_mini_app"
+        comment_text: payload.comment || "—",
+        username: user.username ? "@" + user.username : "",
+        user_id: user.id || "",
+        tg_user_id: user.id || "",
+        first_name: user.first_name || "",
+        last_name: user.last_name || "",
+        source: "telegram_mini_app",
+        sent_at: new Date().toISOString()
       };
       window.Telegram.WebApp.sendData(JSON.stringify(compatiblePayload));
       return true;
