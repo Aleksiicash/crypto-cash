@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Crypto Cash — Binance UI</title>
+  <title>Crypto Cash — Premium UI</title>
   <meta name="theme-color" content="#0b0f16" />
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,7 +69,7 @@
         <div class="eyebrow">PRIVATE EXCHANGE DESK</div>
         <h1>Crypto Cash</h1>
         <p class="lead">Премиальный обмен USDT, USDC, USD, EUR и RUB.</p>
-        <p class="sublead">Конфиденциальность клиента — наш приоритет. Заявки отправляются прямо в Telegram-бота.</p>
+        <p class="sublead">Конфиденциальность клиента — наш приоритет.</p>
 
         <div class="trust-row">
           <span>Безопасно</span>
@@ -159,7 +159,6 @@
       <div class="game-head">
         <div>
           <div class="section-title">Играй и зарабатывай CC</div>
-          <div class="section-sub">Tap-to-earn в стиле Binance/Bybit</div>
         </div>
         <div class="rate-badge">1000 CC = $0.10</div>
       </div>
@@ -169,36 +168,13 @@
         <div class="tap-core-glow"></div>
         <div class="tap-core-shadow"></div>
 
-        <button id="tapBtn" class="tap-btn" type="button" aria-label="Tap for CC">
-          <div class="tap-sheen"></div>
-          <div class="tap-ring outer"></div>
-          <div class="tap-ring inner"></div>
-          <div class="tap-coin">
-            <svg class="cc-logo" viewBox="0 0 240 240" aria-hidden="true">
-              <defs>
-                <linearGradient id="goldTap" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#fff7d1"/>
-                  <stop offset="28%" stop-color="#f7d777"/>
-                  <stop offset="62%" stop-color="#d99a2d"/>
-                  <stop offset="100%" stop-color="#7f4b0c"/>
-                </linearGradient>
-                <filter id="logoGlowTap">
-                  <feGaussianBlur stdDeviation="3.2" result="blur"/>
-                  <feMerge>
-                    <feMergeNode in="blur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
-              </defs>
-              <circle cx="120" cy="120" r="88" fill="none" stroke="url(#goldTap)" stroke-width="4.5" filter="url(#logoGlowTap)"/>
-              <circle cx="120" cy="120" r="67" fill="none" stroke="url(#goldTap)" stroke-opacity="0.26" stroke-width="2.8"/>
-              <line x1="108" y1="35" x2="108" y2="205" stroke="url(#goldTap)" stroke-width="7" stroke-linecap="round"/>
-              <line x1="132" y1="35" x2="132" y2="205" stroke="url(#goldTap)" stroke-width="7" stroke-linecap="round"/>
-              <line x1="38" y1="95" x2="202" y2="95" stroke="url(#goldTap)" stroke-width="8" stroke-linecap="round"/>
-              <line x1="38" y1="125" x2="202" y2="125" stroke="url(#goldTap)" stroke-width="8" stroke-linecap="round"/>
-              <text x="88" y="149" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldTap)" style="font-family: Inter, Arial, sans-serif;">C</text>
-              <text x="146" y="149" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldTap)" style="font-family: Inter, Arial, sans-serif;">C</text>
-            </svg>
+        <button id="tapBtn" class="tap-btn pyramid" type="button" aria-label="Tap for CC">
+          <div class="pyramid-wrap">
+            <div class="pyramid-face front"></div>
+            <div class="pyramid-face left"></div>
+            <div class="pyramid-face right"></div>
+            <div class="pyramid-cap"></div>
+            <div class="pyramid-shine"></div>
           </div>
         </button>
 

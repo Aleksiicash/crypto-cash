@@ -1,7 +1,7 @@
 const DAILY_LIMIT = 1000;
 const REWARD_PER_TAP = 20;
 const WINDOW_MS = 24 * 60 * 60 * 1000;
-const STORAGE_KEY = "crypto_cash_binance_ui_v2";
+const STORAGE_KEY = "crypto_cash_binance_ui_v3";
 
 let tg = null;
 let state = { windowStart: 0, daily: 0, bank: 0 };
@@ -126,10 +126,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (state.daily >= DAILY_LIMIT) {
       tapBtn.disabled = true;
-      limitTextEl.textContent = "Лимит 1000 CC исчерпан. Новое окно откроется только после таймера.";
+      limitTextEl.textContent = "Лимит 1000 CC исчерпан. Тап снова будет доступен только через 24 часа.";
     } else {
       tapBtn.disabled = false;
-      limitTextEl.textContent = `Жёсткий лимит: 1000 CC на каждые 24 часа. Каждый тап даёт ${REWARD_PER_TAP} CC.`;
+      limitTextEl.textContent = `Жёсткий лимит: 1000 CC на каждые 24 часа. После 1000 CC тап блокируется до следующего окна.`;
     }
   }
 
@@ -221,7 +221,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const before = state.daily;
     state.daily = Math.min(DAILY_LIMIT, state.daily + REWARD_PER_TAP);
     const gained = state.daily - before;
-    if (gained <= 0) return;
+    if (gained <= 0) {
+      updateUI();
+      return;
+    }
 
     if (navigator.vibrate) navigator.vibrate([15, 20, 15]);
 
