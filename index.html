@@ -1,221 +1,31 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Crypto Cash Premium</title>
-  <meta name="theme-color" content="#07080d" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Cash</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="bg-shimmer"></div>
-  <div class="bg-particles"></div>
 
-  <main class="app">
-    <section class="topbar card">
-      <div class="topbar-left">
-        <div class="security-pill">🔒 PRIVATE DESK</div>
-        <div class="security-pill">⚡ FAST DEALS</div>
-      </div>
+<div class="topbar">
+  <div class="badge">PRIVATE DESK</div>
+  <div class="user">
+    <div class="avatar">C</div>
+    <div>
+      <div id="username">Клиент</div>
+      <div id="userid">ID: —</div>
+    </div>
+  </div>
+</div>
 
-      <div class="client-chip">
-        <div class="client-avatar" id="clientAvatar">C</div>
-        <div class="client-meta">
-          <div class="client-name" id="clientNameTop">Клиент</div>
-          <div class="client-id" id="clientIdTop">ID: —</div>
-        </div>
-      </div>
-    </section>
+<div class="logo"></div>
 
-    <section class="hero card">
-      <div class="hero-left">
-        <div class="logo-stage">
-          <div class="logo-aura"></div>
-          <div class="logo-reflection"></div>
-          <div class="logo-coin">
-            <svg viewBox="0 0 240 240" class="logo-svg" aria-label="Crypto Cash logo">
-              <defs>
-                <linearGradient id="goldGradA" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#fff6c7"/>
-                  <stop offset="30%" stop-color="#f2cf78"/>
-                  <stop offset="68%" stop-color="#cf912e"/>
-                  <stop offset="100%" stop-color="#8a5211"/>
-                </linearGradient>
-                <filter id="goldGlowA">
-                  <feGaussianBlur stdDeviation="3.2" result="blur"/>
-                  <feMerge>
-                    <feMergeNode in="blur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
-              </defs>
-              <circle cx="120" cy="120" r="85" fill="none" stroke="url(#goldGradA)" stroke-width="5" filter="url(#goldGlowA)"/>
-              <circle cx="120" cy="120" r="64" fill="none" stroke="url(#goldGradA)" stroke-opacity="0.35" stroke-width="3"/>
-              <line x1="111" y1="38" x2="111" y2="203" stroke="url(#goldGradA)" stroke-width="7" stroke-linecap="round"/>
-              <line x1="129" y1="38" x2="129" y2="203" stroke="url(#goldGradA)" stroke-width="7" stroke-linecap="round"/>
-              <line x1="42" y1="95" x2="198" y2="95" stroke="url(#goldGradA)" stroke-width="8" stroke-linecap="round"/>
-              <line x1="42" y1="126" x2="198" y2="126" stroke="url(#goldGradA)" stroke-width="8" stroke-linecap="round"/>
-              <text x="88" y="147" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldGradA)" style="font-family: Inter, Arial, sans-serif;">C</text>
-              <text x="142" y="147" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldGradA)" style="font-family: Inter, Arial, sans-serif;">C</text>
-            </svg>
-          </div>
-        </div>
-      </div>
+<div class="tap-section">
+  <div class="tap-btn" id="tapBtn">TAP</div>
+</div>
 
-      <div class="hero-right">
-        <div class="eyebrow">PRIVATE EXCHANGE DESK</div>
-        <h1>Crypto Cash</h1>
-        <p class="lead">Премиальный обмен USDT, USDC, USD, EUR и RUB в банковском стиле.</p>
-        <p class="sublead">Конфиденциальность клиента — наш приоритет. Заявки отправляются прямо в Telegram-бота.</p>
-
-        <div class="hero-badges">
-          <span>Безопасно</span>
-          <span>Анонимно</span>
-          <span>Премиум сервис</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="request card">
-      <div class="section-title">Новая заявка</div>
-      <div class="section-sub">Мы свяжемся с вами и поможем с обменом</div>
-
-      <form id="requestForm" class="request-grid">
-        <label class="field wide">
-          <span>Направление обмена</span>
-          <select id="direction">
-            <option>USDT → RUB</option>
-            <option>USDC → RUB</option>
-            <option>USD → RUB</option>
-            <option>EUR → RUB</option>
-            <option>RUB → USDT</option>
-            <option>RUB → USDC</option>
-            <option>RUB → USD</option>
-            <option>RUB → EUR</option>
-          </select>
-        </label>
-
-        <label class="field">
-          <span>Сумма</span>
-          <input id="amount" type="text" placeholder="1700" />
-        </label>
-
-        <label class="field">
-          <span>Ваше имя</span>
-          <input id="name" type="text" placeholder="Антон" />
-        </label>
-
-        <label class="field">
-          <span>Комментарий</span>
-          <input id="comment" type="text" placeholder="Необязательно" />
-        </label>
-
-        <button class="gold-btn submit-btn" type="submit">ОТПРАВИТЬ ЗАЯВКУ ✈</button>
-      </form>
-
-      <div class="play-note">🛡 Пока менеджер отвечает, сыграй в игру ниже и <strong>копи CC</strong></div>
-
-      <div id="successBox" class="success-box hidden">
-        <div class="success-icon">✓</div>
-        <div class="success-title">ЗАЯВКА ОТПРАВЛЕНА</div>
-        <div class="success-text">Мы уже передали её менеджеру.</div>
-      </div>
-    </section>
-
-    <section class="stats">
-      <div class="stat-card stat-green card">
-        <div class="stat-label">СЕГОДНЯ</div>
-        <div class="stat-value"><span id="daily">0</span> CC</div>
-        <div class="stat-sub" id="dailyUsd">≈ 0.000 USD</div>
-      </div>
-
-      <div class="stat-card stat-purple card">
-        <div class="stat-label">КОПИЛКА</div>
-        <div class="stat-value"><span id="bank">0</span> CC</div>
-        <div class="stat-sub" id="bankUsd">≈ 0.000 USD</div>
-      </div>
-
-      <div class="stat-card stat-timer card">
-        <div class="stat-label">ДО СЛЕДУЮЩЕГО ОКНА</div>
-        <div class="timer-big" id="cooldownTime">24:00:00</div>
-        <div class="timer-row">
-          <span>ЛИМИТ 24 ЧАСА</span>
-          <span><span id="remaining">1000</span> / 1000 CC</span>
-        </div>
-        <div class="progress-track">
-          <div class="progress-fill" id="progressFill"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="game card">
-      <div class="game-head">
-        <div>
-          <div class="section-title">Играй и зарабатывай CC</div>
-          <div class="section-sub">Мощная 3D-тапалка с вибро и премиум-эффектами</div>
-        </div>
-        <div class="rate-chip">1000 CC = $0.10</div>
-      </div>
-
-      <div class="tap-zone">
-        <div class="tap-beam"></div>
-        <div class="tap-shadow"></div>
-        <button id="tapBtn" class="tap-btn" type="button" aria-label="Tap for CC">
-          <div class="tap-reflection"></div>
-          <div class="tap-ring ring-1"></div>
-          <div class="tap-ring ring-2"></div>
-          <div class="tap-coin">
-            <svg viewBox="0 0 240 240" class="logo-svg" aria-hidden="true">
-              <defs>
-                <linearGradient id="goldGradTapB" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#fff6c7"/>
-                  <stop offset="30%" stop-color="#f2cf78"/>
-                  <stop offset="68%" stop-color="#cf912e"/>
-                  <stop offset="100%" stop-color="#8a5211"/>
-                </linearGradient>
-                <filter id="goldGlowTapB">
-                  <feGaussianBlur stdDeviation="3.2" result="blur"/>
-                  <feMerge>
-                    <feMergeNode in="blur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
-              </defs>
-              <circle cx="120" cy="120" r="85" fill="none" stroke="url(#goldGradTapB)" stroke-width="5" filter="url(#goldGlowTapB)"/>
-              <circle cx="120" cy="120" r="64" fill="none" stroke="url(#goldGradTapB)" stroke-opacity="0.35" stroke-width="3"/>
-              <line x1="111" y1="38" x2="111" y2="203" stroke="url(#goldGradTapB)" stroke-width="7" stroke-linecap="round"/>
-              <line x1="129" y1="38" x2="129" y2="203" stroke="url(#goldGradTapB)" stroke-width="7" stroke-linecap="round"/>
-              <line x1="42" y1="95" x2="198" y2="95" stroke="url(#goldGradTapB)" stroke-width="8" stroke-linecap="round"/>
-              <line x1="42" y1="126" x2="198" y2="126" stroke="url(#goldGradTapB)" stroke-width="8" stroke-linecap="round"/>
-              <text x="88" y="147" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldGradTapB)" style="font-family: Inter, Arial, sans-serif;">C</text>
-              <text x="142" y="147" text-anchor="middle" font-size="118" font-weight="900" fill="url(#goldGradTapB)" style="font-family: Inter, Arial, sans-serif;">C</text>
-            </svg>
-          </div>
-        </button>
-        <div id="floaters" class="floaters"></div>
-      </div>
-
-      <div class="tap-caption">ТАПАЙ И ЗАРАБАТЫВАЙ CC</div>
-      <div class="limit-text" id="limitText"></div>
-
-      <div class="actions">
-        <button id="saveBtn" class="dark-btn" type="button">В КОПИЛКУ</button>
-        <button id="withdrawBtn" class="gold-btn" type="button">ОБМЕНЯТЬ CC</button>
-      </div>
-    </section>
-
-    <section class="footer card">
-      <div class="footer-item">SSL ЗАЩИТА</div>
-      <div class="footer-item">ПОЛНАЯ АНОНИМНОСТЬ</div>
-      <div class="footer-item">ПОДДЕРЖКА 24/7</div>
-      <div class="footer-item">ЛУЧШИЙ КУРС</div>
-    </section>
-  </main>
-
-  <script src="app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
