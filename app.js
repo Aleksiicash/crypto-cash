@@ -80,6 +80,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (forceSave) saveState();
   }
 
+  function showSentHint() {
+    const text = document.createElement('div');
+    text.className = 'sent-hint';
+    text.textContent = 'Заявка отправлена. Вернись в чат бота.';
+    document.body.appendChild(text);
+    setTimeout(() => {
+      text.classList.add('show');
+      setTimeout(() => {
+        text.classList.remove('show');
+        setTimeout(() => text.remove(), 300);
+      }, 2200);
+    }, 20);
+  }
+
   function fillProfile() {
     if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
       const user = tg.initDataUnsafe.user;
@@ -229,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
       daily_cc: state.daily,
       usd_value: (total / 1000 * 0.1).toFixed(3)
     });
-    if (ok && tg) setTimeout(() => tg.close(), 700);
+    if (ok) showSentHint();
   });
 
   requestForm.addEventListener("submit", (e) => {
@@ -249,7 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (ok) {
       successBox.classList.remove("hidden");
       setTimeout(() => successBox.classList.add("hidden"), 2500);
-      if (tg) setTimeout(() => tg.close(), 700);
+      showSentHint();
     }
   });
 

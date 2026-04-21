@@ -231,3 +231,14 @@ body{position:relative;overflow-x:hidden}
   background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));border:1px solid var(--stroke-soft);padding:8px;
 }
 @media (min-width:760px){.shell{width:min(860px, calc(100% - 18px))}}
+
+
+.sent-hint{
+  position:fixed; left:12px; right:12px; bottom:18px; z-index:99999;
+  padding:14px 16px; border-radius:16px;
+  background:linear-gradient(180deg, rgba(31,44,25,.96), rgba(16,24,16,.96));
+  border:1px solid rgba(95,243,158,.28);
+  color:#dfffe9; font-weight:700; text-align:center;
+  transform:translateY(20px); opacity:0; transition:.28s ease;
+}
+.sent-hint.show{transform:translateY(0); opacity:1}
