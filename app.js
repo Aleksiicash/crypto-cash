@@ -1,12 +1,12 @@
 const DAILY_LIMIT = 1000;
 const REWARD_PER_TAP = 20;
 const WINDOW_MS = 24 * 60 * 60 * 1000;
-const STORAGE_KEY = "crypto_cash_premium_splash_fix_v5";
+const STORAGE_KEY = "crypto_cash_working_fixed_v8";
 
 let tg = null;
 let state = { windowStart: 0, daily: 0, bank: 0 };
 const particles = [];
-let canvas, ctx, tapBtn, floatersEl;
+let canvas, ctx, tapBtn, floatersEl, saveBtn;
 
 document.addEventListener("DOMContentLoaded", () => {
   const splash = document.getElementById("splashScreen");
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const progressFillEl = document.getElementById("progressFill");
   const limitTextEl = document.getElementById("limitText");
   tapBtn = document.getElementById("tapBtn");
-  const saveBtn = document.getElementById("saveBtn");
+  saveBtn = document.getElementById("saveBtn");
   const withdrawBtn = document.getElementById("withdrawBtn");
   const requestForm = document.getElementById("requestForm");
   const nameEl = document.getElementById("name");
@@ -63,10 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return `${h}:${m}:${s}`;
   }
 
-  function nextResetIn() {
-    return Math.max(0, (state.windowStart + WINDOW_MS) - Date.now());
-  }
-
   function normalizeWindow(forceSave = false) {
     if (!state.windowStart) {
       state.windowStart = Date.now();
@@ -85,36 +81,27 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function fillProfile() {
-    const fallbackName = "Клиент";
-    const fallbackId = "ID: —";
-
     if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
       const user = tg.initDataUnsafe.user;
-      const fullName = [user.first_name, user.last_name].filter(Boolean).join(" ").trim() || fallbackName;
+      const fullName = [user.first_name, user.last_name].filter(Boolean).join(" ").trim() || "Клиент";
       const username = user.username ? "@" + user.username : fullName;
       clientNameTopEl.textContent = username;
       clientIdTopEl.textContent = `ID: ${user.id}`;
       clientAvatarEl.textContent = (user.first_name || fullName || "C").slice(0, 1).toUpperCase();
       if (!nameEl.value && fullName) nameEl.value = fullName;
-    } else {
-      clientNameTopEl.textContent = fallbackName;
-      clientIdTopEl.textContent = fallbackId;
-      clientAvatarEl.textContent = "C";
     }
   }
 
   function updateUI() {
     normalizeWindow();
-
     dailyEl.textContent = fmt(state.daily);
     bankEl.textContent = fmt(state.bank);
     dailyUsdEl.textContent = `≈ ${ccToUsd(state.daily)} USD`;
     bankUsdEl.textContent = `≈ ${ccToUsd(state.bank)} USD`;
-
     const rem = Math.max(0, DAILY_LIMIT - state.daily);
     remainingEl.textContent = fmt(rem);
     progressFillEl.style.width = `${Math.min(100, (state.daily / DAILY_LIMIT) * 100)}%`;
-    cooldownTimeEl.textContent = formatDuration(nextResetIn());
+    cooldownTimeEl.textContent = formatDuration(Math.max(0, (state.windowStart + WINDOW_MS) - Date.now()));
 
     if (state.daily >= DAILY_LIMIT) {
       tapBtn.disabled = true;
@@ -140,9 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
         client_name: payload.name || "—",
         exchange_direction: payload.direction || "—",
         sum: payload.amount || "—",
-        amount_text: payload.amount || "—",
         notes: payload.comment || "—",
-        comment_text: payload.comment || "—",
         username: (tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.username) ? "@" + tg.initDataUnsafe.user.username : "",
         user_id: (tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id) ? tg.initDataUnsafe.user.id : "",
         source: "telegram_mini_app"
@@ -183,23 +168,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function loopParticles() {
-    if (!ctx || !canvas) {
-      requestAnimationFrame(loopParticles);
-      return;
-    }
+    if (!ctx || !canvas) { requestAnimationFrame(loopParticles); return; }
     const rect = canvas.getBoundingClientRect();
     ctx.clearRect(0, 0, rect.width, rect.height);
-
     for (let i = particles.length - 1; i >= 0; i--) {
       const p = particles[i];
-      p.x += p.vx;
-      p.y += p.vy;
-      p.vy += 0.02;
-      p.life -= 0.02;
-      if (p.life <= 0) {
-        particles.splice(i, 1);
-        continue;
-      }
+      p.x += p.vx; p.y += p.vy; p.vy += 0.02; p.life -= 0.02;
+      if (p.life <= 0) { particles.splice(i, 1); continue; }
       ctx.beginPath();
       ctx.fillStyle = `rgba(247, 215, 119, ${Math.max(0, p.life)})`;
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -212,40 +187,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   tapBtn.addEventListener("click", (e) => {
     normalizeWindow();
-    if (state.daily >= DAILY_LIMIT) {
-      updateUI();
-      return;
-    }
-
+    if (state.daily >= DAILY_LIMIT) { updateUI(); return; }
     const before = state.daily;
     state.daily = Math.min(DAILY_LIMIT, state.daily + REWARD_PER_TAP);
     const gained = state.daily - before;
-    if (gained <= 0) {
-      updateUI();
-      return;
-    }
-
+    if (gained <= 0) { updateUI(); return; }
     if (navigator.vibrate) navigator.vibrate([15, 20, 15]);
     tapBtn.classList.add("pressed");
     setTimeout(() => tapBtn.classList.remove("pressed"), 120);
-
     const zoneRect = canvas.getBoundingClientRect();
     const x = (e.clientX || zoneRect.width / 2) - zoneRect.left;
     const y = (e.clientY || zoneRect.height / 2) - zoneRect.top;
-
     emitSparks(x, y);
     spawnFloater(x, y, `+${gained} CC`);
-
     saveState();
     updateUI();
   });
 
   saveBtn.addEventListener("click", () => {
     normalizeWindow();
-    if (state.daily <= 0 || state.daily >= DAILY_LIMIT) {
-      updateUI();
-      return;
-    }
+    if (state.daily <= 0 || state.daily >= DAILY_LIMIT) { updateUI(); return; }
     state.bank += state.daily;
     state.daily = DAILY_LIMIT;
     saveState();
