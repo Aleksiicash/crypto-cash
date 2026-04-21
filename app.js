@@ -123,12 +123,27 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function sendPayload(payload) {
-    if (!tg) {
+    if (!tg || !window.Telegram || !window.Telegram.WebApp) {
       alert("Mini app открыт не как Telegram WebApp. Открой его через кнопку бота /start.");
       return false;
     }
     try {
-      tg.sendData(JSON.stringify(payload));
+      // Дублируем ключи для совместимости со старыми версиями бота
+      const compatiblePayload = {
+        ...payload,
+        action: payload.type,
+        request_type: payload.type,
+        client_name: payload.name || "—",
+        exchange_direction: payload.direction || "—",
+        sum: payload.amount || "—",
+        amount_text: payload.amount || "—",
+        notes: payload.comment || "—",
+        comment_text: payload.comment || "—",
+        username: (tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.username) ? "@" + tg.initDataUnsafe.user.username : "",
+        user_id: (tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id) ? tg.initDataUnsafe.user.id : "",
+        source: "telegram_mini_app"
+      };
+      window.Telegram.WebApp.sendData(JSON.stringify(compatiblePayload));
       return true;
     } catch (e) {
       alert("Не удалось отправить данные в бота.");
@@ -248,7 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
       daily_cc: state.daily,
       usd_value: (total / 1000 * 0.1).toFixed(3)
     });
-    if (ok && tg) tg.close();
+    if (ok && tg) setTimeout(() => tg.close(), 700);
   });
 
   requestForm.addEventListener("submit", (e) => {
@@ -268,7 +283,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (ok) {
       successBox.classList.remove("hidden");
       setTimeout(() => successBox.classList.add("hidden"), 2500);
-      if (tg) tg.close();
+      // Небольшая пауза, чтобы Telegram успел отправить web_app_data боту
+      if (tg) setTimeout(() => tg.close(), 700);
     }
   });
 
