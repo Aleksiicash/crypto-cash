@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Crypto Cash</title>
+  <meta name="theme-color" content="#0b0f16" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    window.BACKEND_URL = "https://YOUR-RENDER-URL.onrender.com";
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=13" />
+</head>
+<body>
+  <div id="splashScreen" class="splash-screen">
+    <div class="splash-bg"></div>
+    <div class="splash-center">
+      <div class="splash-ring ring-1"></div>
+      <div class="splash-ring ring-2"></div>
+      <div class="splash-logo-shell">
+        <img src="logo.png?v=13" alt="Crypto Cash logo" class="splash-logo" />
+      </div>
+      <div class="splash-brand">CRYPTO CASH</div>
+      <div class="splash-sub">PRIVATE EXCHANGE DESK</div>
+      <div class="splash-loader"><span></span></div>
+    </div>
+  </div>
+
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-grid"></div>
+
+  <main class="shell">
+    <section class="topbar card glass">
+      <div class="pill-row">
+        <div class="pill">PRIVATE DESK</div>
+        <div class="pill">FAST DEALS</div>
+      </div>
+
+      <div class="user-chip">
+        <div class="avatar" id="clientAvatar">C</div>
+        <div class="user-meta">
+          <div class="user-name" id="clientNameTop">Клиент</div>
+          <div class="user-id" id="clientIdTop">ID: —</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero card">
+      <div class="hero-logo-wrap">
+        <div class="hero-logo-glow"></div>
+        <div class="hero-logo-reflection"></div>
+        <div class="hero-logo image-logo">
+          <img src="logo.png?v=13" alt="Crypto Cash logo" class="hero-logo-image" />
+        </div>
+      </div>
+
+      <div class="hero-copy">
+        <div class="eyebrow">PRIVATE EXCHANGE DESK</div>
+        <h1>Crypto Cash</h1>
+        <p class="lead">Премиальный обмен USDT, USDC, USD, EUR и RUB.</p>
+        <p class="sublead">Конфиденциальность клиента — наш приоритет.</p>
+
+        <div class="trust-row">
+          <span>Безопасно</span>
+          <span>Анонимно</span>
+          <span>Премиум сервис</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="request card">
+      <div class="section-title">Новая заявка</div>
+      <div class="section-sub">Мы свяжемся с вами и поможем с обменом</div>
+
+      <form id="requestForm" class="request-form">
+        <label class="field">
+          <span>Направление обмена</span>
+          <select id="direction">
+            <option>USDT → RUB</option>
+            <option>USDC → RUB</option>
+            <option>USD → RUB</option>
+            <option>EUR → RUB</option>
+            <option>RUB → USDT</option>
+            <option>RUB → USDC</option>
+            <option>RUB → USD</option>
+            <option>RUB → EUR</option>
+          </select>
+        </label>
+
+        <div class="split">
+          <label class="field">
+            <span>Сумма</span>
+            <input id="amount" type="text" inputmode="decimal" placeholder="1700" />
+          </label>
+
+          <label class="field">
+            <span>Ваше имя</span>
+            <input id="name" type="text" placeholder="Антон" />
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Комментарий</span>
+          <input id="comment" type="text" placeholder="Необязательно" />
+        </label>
+
+        <button class="gold-btn" type="submit">ОТПРАВИТЬ ЗАЯВКУ ✈</button>
+      </form>
+
+      <div class="notice-line">🛡 Пока менеджер отвечает, сыграй в игру ниже и <strong>копи CC</strong></div>
+
+      <div id="successBox" class="success-box hidden">
+        <div class="success-mark">✓</div>
+        <div class="success-title">ЗАЯВКА ОТПРАВЛЕНА</div>
+        <div class="success-text">Мы получили вашу заявку и передали её менеджеру.</div>
+      </div>
+    </section>
+
+    <section class="stats-row">
+      <div class="stat-card card stat-green">
+        <div class="stat-kicker">СЕГОДНЯ</div>
+        <div class="stat-value"><span id="daily">0</span> CC</div>
+        <div class="stat-sub" id="dailyUsd">≈ 0.000 USD</div>
+        <div class="mini-chart green-chart"></div>
+      </div>
+
+      <div class="stat-card card stat-purple">
+        <div class="stat-kicker">КОПИЛКА</div>
+        <div class="stat-value"><span id="bank">0</span> CC</div>
+        <div class="stat-sub" id="bankUsd">≈ 0.000 USD</div>
+        <div class="mini-chart purple-chart"></div>
+      </div>
+    </section>
+
+    <section class="timer-card card">
+      <div class="timer-head">
+        <div class="timer-kicker">ДО СЛЕДУЮЩЕГО ОКНА</div>
+        <div class="timer-value" id="cooldownTime">24:00:00</div>
+      </div>
+      <div class="timer-row">
+        <span>ЛИМИТ 24 ЧАСА</span>
+        <span><span id="remaining">1000</span> / 1000 CC</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </section>
+
+    <section class="game card">
+      <div class="game-head">
+        <div>
+          <div class="section-title">Играй и зарабатывай CC</div>
+        </div>
+        <div class="rate-badge">1000 CC = $0.10</div>
+      </div>
+
+      <div class="tap-zone">
+        <canvas id="sparkCanvas"></canvas>
+        <div class="tap-core-glow"></div>
+        <div class="tap-core-shadow"></div>
+
+        <button id="tapBtn" class="tap-btn pyramid" type="button" aria-label="Tap for CC">
+          <div class="pyramid-wrap">
+            <div class="pyramid-face front"></div>
+            <div class="pyramid-face left"></div>
+            <div class="pyramid-face right"></div>
+            <div class="pyramid-cap"></div>
+            <div class="pyramid-shine"></div>
+          </div>
+        </button>
+
+        <div id="floaters" class="floaters"></div>
+      </div>
+
+      <div class="tap-caption">TAP FOR CC</div>
+      <div class="limit-text" id="limitText"></div>
+
+      <div class="action-row">
+        <button id="saveBtn" class="dark-btn" type="button">В КОПИЛКУ</button>
+        <button id="withdrawBtn" class="gold-btn" type="button">ОБМЕНЯТЬ CC</button>
+      </div>
+    </section>
+
+    <section class="footer-grid card">
+      <div class="footer-item">SSL ЗАЩИТА</div>
+      <div class="footer-item">ПОЛНАЯ АНОНИМНОСТЬ</div>
+      <div class="footer-item">ПОДДЕРЖКА 24/7</div>
+      <div class="footer-item">ЛУЧШИЙ КУРС</div>
+    </section>
+  </main>
+
+  <script src="app.js?v=13"></script>
+</body>
+</html>
